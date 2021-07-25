@@ -1,9 +1,5 @@
-/*
- * @Author: TR
- * @Date: 2021-07-23 19:43:19
- * @LastEditors: no BUG
- * @LastEditTime: 2021-07-23 20:29:37
- * @Description: line code four BUG
+/**
+ * 路由模块
  */
 import Vue from "vue";
 import VueRouter from "vue-router";
