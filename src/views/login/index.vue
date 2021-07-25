@@ -4,7 +4,9 @@
 
 <template>
   <div class="login-container">
-    <van-nav-bar class="page-nav-bar" title="登录" />
+    <van-nav-bar class="page-nav-bar" title="登录">
+      <van-icon slot="left" name="cross" @click="$router.back()" />
+    </van-nav-bar>
     <van-form ref="loginFrom" @submit="onSubmit">
       <van-field
         v-model="user.mobile"
@@ -113,6 +115,8 @@ export default {
         this.$toast.success("登录成功");
         // 将登录成功后返回的tokens储存到本地
         this.updateTokens(res.data.data);
+        // 登录成功
+        this.$router.back();
       } catch (err) {
         if (err.response.status === 400) {
           // console.log("登录失败");
@@ -153,6 +157,9 @@ export default {
 </script>
 <style scoped lang="less">
 .login-container {
+  .van-icon {
+    color: #fff;
+  }
   .toutiao {
     font-size: 37px;
   }

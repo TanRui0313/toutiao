@@ -14,5 +14,8 @@ export default new Vuex.Store({
   actions: {},
   modules: {
     user
+  },
+  getters: {
+    tokens: state => state.user.tokens
   }
 });
