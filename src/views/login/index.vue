@@ -14,7 +14,10 @@
         placeholder="请输入手机号"
         :rules="formAuthentication.mobile"
       >
-        <i slot="left-icon" class="toutiao toutiao-shouji"></i>
+        <!-- <i slot="left-icon" class="toutiao toutiao-shouji"></i> -->
+        <template #left-icon>
+          <i class="toutiao toutiao-shouji"></i>
+        </template>
       </van-field>
       <van-field
         v-model="user.code"
@@ -66,8 +69,8 @@ export default {
   data() {
     return {
       user: {
-        mobile: "",
-        code: "",
+        mobile: "13911111111",
+        code: "246810",
       },
       // 表单验证规则
       formAuthentication: {
@@ -110,7 +113,7 @@ export default {
 
       try {
         let res = await login(this.user);
-        console.log("点击登录成功", res);
+        // console.log("点击登录成功", res);
         // 登录成功提示
         this.$toast.success("登录成功");
         // 将登录成功后返回的tokens储存到本地

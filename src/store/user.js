@@ -11,12 +11,12 @@ export default {
   },
   mutations: {
     removeTokens(state) {
-      console.log("删除tokens成功");
+      // console.log("删除tokens成功");
       state.tokens = null;
       removeItem(TOUTIAO_TOKENS);
     },
     updateTokens(state, data) {
-      console.log("储存tokens成功");
+      // console.log("储存tokens成功");
       state.tokens = data;
       setItem(TOUTIAO_TOKENS, data);
     }

@@ -112,7 +112,7 @@ export default {
         const res = await getUser();
         // console.log(res);
         this.user = res.data.data;
-        console.log(this.user);
+        // console.log(this.user);
       } catch (error) {}
     },
   },

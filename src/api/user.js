@@ -14,7 +14,7 @@ export default {
   },
   // 发送验证码请求
   getCode(mobile) {
-    console.log("发送验证码请求成功");
+    // console.log("发送验证码请求成功");
     return request({
       method: "GET",
       url: `/app/v1_0/sms/codes/${mobile}`
@@ -22,7 +22,7 @@ export default {
   },
   // 获取用户信息
   getUser() {
-    console.log("获取用户信成功");
+    // console.log("获取用户信成功");
     return request({
       url: "/app/v1_0/user",
       method: "GET",

@@ -25,6 +25,6 @@ export const setItem = (key, value) => {
  * 删除
  */
 export const removeItem = key => {
-  console.log(key);
+  // console.log(key);
   window.localStorage.removeItem(key);
 };
