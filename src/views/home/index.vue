@@ -9,6 +9,7 @@
         size="small"
         round
         icon="search"
+        to="/search"
         >搜索</van-button
       >
     </van-nav-bar>
@@ -21,37 +22,80 @@
       <template #nav-right>
         <div class="placeholder"></div>
         <div class="hamburger-btn">
-          <i @click="show = true" class="toutiao toutiao-gengduo"></i>
+          <i
+            @click="isEditChannelShow = true"
+            class="toutiao toutiao-gengduo"
+          ></i>
         </div>
       </template>
     </van-tabs>
+    <!-- 频道编辑 -->
+    <van-popup
+      class="edit-channel-popup"
+      v-model="isEditChannelShow"
+      position="bottom"
+      :style="{ height: '100%' }"
+      closeable
+      close-icon-position="top-left"
+    >
+      <channel-edit
+        @update-active="onMyChannelHandler"
+        :active="active"
+        :myChannels="channels"
+      ></channel-edit>
+    </van-popup>
+    <!-- /频道编辑 -->
   </div>
 </template>
 <script>
 import { getUserChannels } from "@/api";
 import ArticleList from "./components/article-list.vue";
+import ChannelEdit from "./components/channel-edit.vue";
+import { mapGetters } from "vuex";
+import { getItem } from "@/utils/storage";
 export default {
   name: "HomePage",
-  components: { ArticleList },
+  components: { ArticleList, ChannelEdit },
   props: {},
   data() {
     return {
       active: 0,
       channels: [],
+      isEditChannelShow: false,
     };
   },
   created() {
     this.loadUserChannels();
   },
+  computed: {
+    ...mapGetters(["tokens"]),
+  },
   methods: {
+    //获取用户频道
     async loadUserChannels() {
       try {
-        const { data } = await getUserChannels();
-        console.log(data);
-        this.channels = data.data.channels;
+        let channles = [];
+        const localChannels = getItem("TOUTIAO_CHANNELS");
+        if (this.tokens || !localChannels) {
+          // 登录 或者 本地没有存储 获取后端数据
+          const { data } = await getUserChannels();
+          this.channels = data.data.channels;
+          return false;
+        } else {
+          // 未登录并且本地没有数据
+          channles = localChannels;
+          // console.log("未登录并且本地没有数据");
+        }
+        this.channels = channles;
       } catch (err) {
         console.log("列表请求失败", err);
       }
+    },
+    // 我的频道点击跳转
+    onMyChannelHandler(index, isEditChannelShow) {
+      this.active = index;
+      // 隐藏频道编辑
+      this.isEditChannelShow = isEditChannelShow;
     },
   },
 };
@@ -134,6 +178,13 @@ export default {
       background-image: url(~@/assets/gradient-gray-line.png);
       background-size: contain;
     }
+  }
+  .edit-channel-popup {
+    padding-top: 100px;
+    box-sizing: border-box;
+  }
+  .active {
+    color: red;
   }
 }
 </style>

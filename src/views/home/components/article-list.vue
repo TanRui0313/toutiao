@@ -14,11 +14,16 @@
         error-text="请求失败，点击重新加载"
         @load="onLoad"
       >
-        <van-cell
+        <!-- <van-cell
           v-for="(item, index) in articles"
           :key="index"
           :title="item.title"
-        />
+        /> -->
+        <article-item
+          v-for="(item, index) in articles"
+          :key="index"
+          :article="item"
+        ></article-item>
       </van-list>
     </van-pull-refresh>
   </div>
@@ -26,9 +31,10 @@
 
 <script>
 import { getUserArticles } from "@/api";
+import ArticleItem from "./article-item.vue";
 export default {
   name: "ArticleList",
-  components: {},
+  components: { ArticleItem },
   props: {
     channel: {
       type: Object,
@@ -48,15 +54,16 @@ export default {
   },
   created() {},
   methods: {
+    // 底部刷新
     async onLoad() {
-      console.log(this.channel);
+      // console.log(this.channel);
       try {
         const { data } = await getUserArticles({
           channel_id: this.channel.id,
           timestamp: this.timestamp || Date.now(),
           with_top: 1,
         });
-        console.log(data);
+        // console.log(data);
         this.articles.push(...data.data.results);
         this.loading = false;
         // 4. 判断数据是否加载结束
@@ -72,6 +79,7 @@ export default {
         this.error = true; // 开启错误提示
       }
     },
+    // 下拉刷新
     async onRefresh() {
       try {
         const { data } = await getUserArticles({
@@ -79,7 +87,7 @@ export default {
           timestamp: this.timestamp || Date.now(),
           with_top: 1,
         });
-        console.log(data);
+        // console.log(data);
         this.articles.unshift(...data.data.results);
         this.isRefreshLoading = false;
         this.successtext = `刷新成功`;
