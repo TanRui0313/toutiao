@@ -13,5 +13,13 @@ export default {
         q
       }
     });
+  },
+  // 搜索结果请求
+  getSearch(params) {
+    return request({
+      method: "GET",
+      url: "/app/v1_0/search",
+      params
+    });
   }
 };

@@ -1,6 +1,6 @@
 <template>
   <div class="article-item">
-    <van-cell>
+    <van-cell :to="`/article/${article.art_id}`">
       <div slot="title" class="title">{{ article.title }}</div>
       <div slot="label">
         <div v-if="article.cover.type === 3" class="cover-wrap">

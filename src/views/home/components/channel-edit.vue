@@ -141,7 +141,7 @@ export default {
         }
       } else {
         // 未登录
-        setItem("channles", this.myChannels);
+        setItem("TOUTIAO_CHANNELS", this.myChannels);
       }
     },
   },

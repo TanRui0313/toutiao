@@ -44,5 +44,13 @@ export default {
       method: "DELETE",
       url: `/app/v1_0/user/channels/${channelId}`
     });
+  },
+  // 文章详情请求
+  getArticleById(articleId) {
+    console.log("文章详情");
+    return request({
+      method: "GET",
+      url: "/app/v1_0/articles/" + articleId
+    });
   }
 };

@@ -20,3 +20,7 @@ export const addUserChannel = article.addUserChannel;
 export const deleteUserChannel = article.deleteUserChannel;
 // 搜索建议提示
 export const getSearchSuggestion = search.getSearchSuggestion;
+// 搜索结果请求
+export const getSearch = search.getSearch;
+// 文章详情请求
+export const getArticleById = article.getArticleById;
